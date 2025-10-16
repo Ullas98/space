@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>What's your name?</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 2rem; }
+    form { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+    input, button { font-size: 1rem; padding: .5rem .7rem; }
+    #result { margin-top: 1rem; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>What's your name?</h1>
+
+    <form id="nameForm">
+      <label for="name">Name:</label>
+      <input id="name" name="name" type="text" autocomplete="name" required autofocus />
+      <button type="submit">Show</button>
+    </form>
+
+    <p id="result" aria-live="polite"></p>
+  </main>
+
+  <script>
+    const form   = document.getElementById('nameForm');
+    const input  = document.getElementById('name');
+    const result = document.getElementById('result');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = input.value.trim();
+
+      if (!name) {
+        result.textContent = "Please enter a name.";
+        input.focus();
+        return;
+      }
+
+      result.textContent = `Your name is ${name}.`;
+    });
+  </script>
+</body>
+</html>

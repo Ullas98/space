@@ -37,7 +37,48 @@
     }
     footer a {
       text-decoration: none;
-      color: red; /* small red link */
+      color: red;
+    }
+
+    /* Popup styles */
+    #popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+    #popup.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    #popupContent {
+      background: #111;
+      color: #0f0;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      transform: scale(0.5);
+      transition: transform 0.8s ease;
+      font-size: 1.5rem;
+      box-shadow: 0 0 20px #0f0;
+    }
+    #popup.show #popupContent {
+      transform: scale(1);
+    }
+    #closeBtn {
+      margin-top: 1rem;
+      background: #0f0;
+      border: none;
+      padding: .5rem 1rem;
+      cursor: pointer;
+      border-radius: 6px;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -54,15 +95,24 @@
     <p id="result" aria-live="polite"></p>
   </main>
 
-  <!-- watermark / link -->
   <footer>
     <a href="https://ullas.shop" target="_blank">ullas.shop</a>
   </footer>
+
+  <!-- prank popup -->
+  <div id="popup">
+    <div id="popupContent">
+      <p> youre hacked lil nigga </p>
+      <button id="closeBtn">OK</button>
+    </div>
+  </div>
 
   <script>
     const form   = document.getElementById('nameForm');
     const input  = document.getElementById('name');
     const result = document.getElementById('result');
+    const popup  = document.getElementById('popup');
+    const closeBtn = document.getElementById('closeBtn');
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -75,6 +125,15 @@
       }
 
       result.textContent = `Your name is ${name}.`;
+
+      // Show prank popup after 1 second
+      setTimeout(() => {
+        popup.classList.add('show');
+      }, 1000);
+    });
+
+    closeBtn.addEventListener('click', () => {
+      popup.classList.remove('show');
     });
   </script>
 </body>
